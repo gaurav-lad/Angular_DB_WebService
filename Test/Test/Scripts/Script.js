@@ -1,5 +1,21 @@
 /// <reference path="angular.min.js"/>
 
+var demoApp = angular.module("demoApp", [])
+    .controller("countryController", function ($scope, $http, $location, $anchorScroll) {
+        $http({
+            method: 'GET',
+            url: 'CountryServices.asmx/GetData'
+        })
+            .then(function (response) {
+                $scope.countries = response.data;
+            });
+
+        $scope.scrollTo = function (countryName) {
+            $location.hash(countryName);
+            $anchorScroll();
+        }
+    });
+
 var myApp = angular
     .module("myModule", [])
     .controller("myController", function ($scope) {
